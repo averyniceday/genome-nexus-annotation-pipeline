@@ -454,21 +454,26 @@ public class MutationRecord {
     }
 
     public List<String> getHeaderWithAdditionalFields() {
-        List<String> headerWithAdditionalFields = new ArrayList<>();
-        headerWithAdditionalFields.addAll(header);
-
-        String[] sortedAdditionalProperties = additionalProperties.keySet().toArray(new String[additionalProperties.keySet().size()]);
-        Arrays.sort(sortedAdditionalProperties);
-        for (String field : sortedAdditionalProperties) {
-            if (!headerWithAdditionalFields.contains(field)) {
-                headerWithAdditionalFields.add(field);
-            }
-        }
+        List<String> headerWithAdditionalFields = new ArrayList<>(getHeader());
+        headerWithAdditionalFields.addAll(getSortedAdditionalPropertiesKeys());
         return headerWithAdditionalFields;
     }
 
+    public List<String> getSortedAdditionalPropertiesKeys() {
+        List<String> sortedAdditionalPropertiesKeys = new ArrayList<>();
+        String[] additionalPropertiesKeys = additionalProperties.keySet().toArray(new String[additionalProperties.keySet().size()]);
+        Arrays.sort(additionalPropertiesKeys);
+        // filter out possibility of a column being both in additional properties and as predefined header field
+        for (String additionalPropertiesKey : additionalPropertiesKeys) {
+            if (!getHeader().contains(additionalPropertiesKey)) {
+                sortedAdditionalPropertiesKeys.add(additionalPropertiesKey);
+            }
+        }
+        return sortedAdditionalPropertiesKeys;
+    }
+ 
     public List<String> getHeader() {
-        return  header;
+        return header;
     }
 
     public void initHeader() {
