@@ -66,9 +66,9 @@
     </dependency>
     <!-- cbioportal -->
     <dependency>
-      <groupId>com.github.cbioportal</groupId>
+      <groupId>com.github.averyniceday</groupId>
       <artifactId>cbioportal</artifactId>
-      <version>c27ef907841b0ee3e66bd4c133b5a527e7de7d38</version>
+      <version>2199bad94e47589553fe9539eb4e1ed1299e4492</version>
     </dependency>
     <!-- api client -->
     <dependency>
